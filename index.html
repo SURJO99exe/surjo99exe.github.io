@@ -61,6 +61,21 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(8,12
 .mobile-link{padding:10px 16px;border-radius:var(--r);font-size:15px;font-weight:500;color:var(--fg-muted);cursor:pointer;transition:background .15s,color .15s}
 .mobile-link:hover,.mobile-link.active{background:var(--bg3);color:var(--accent)}
 
+/* NOTIFICATION BELL */
+.notif-bell{position:relative}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:#f87171;border:2px solid var(--bg);display:none}
+.notif-dot.show{display:block;animation:pulse 1.5s infinite}
+.notif-panel{position:absolute;top:calc(100% + 10px);right:0;width:300px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);overflow:hidden;display:none;z-index:600;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.notif-panel.open{display:block;animation:fadeUp .2s ease}
+.notif-header{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.notif-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;font-size:12px}
+.notif-item:hover{background:var(--bg3)}
+.notif-item:last-child{border-bottom:none}
+.notif-item .n-title{font-weight:600;margin-bottom:2px;color:var(--fg)}
+.notif-item .n-sub{color:var(--fg-muted);line-height:1.4}
+.notif-item .n-time{font-family:var(--mono);font-size:10px;color:var(--fg-dim);margin-top:4px}
+.notif-empty{padding:24px;text-align:center;font-size:13px;color:var(--fg-muted)}
+
 /* PAGE TRANSITIONS */
 .page{display:none}
 .page.active{display:block;animation:fadeUp .4s cubic-bezier(.16,1,.3,1) both}
@@ -106,6 +121,89 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(8,12
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 .hero-bg{position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:500px;height:500px;opacity:.04;background-image:linear-gradient(var(--fg) 1px,transparent 1px),linear-gradient(90deg,var(--fg) 1px,transparent 1px);background-size:40px 40px;border-radius:50%;pointer-events:none;animation:rotateSlow 30s linear infinite}
 @keyframes rotateSlow{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
+
+/* ── NEW HOME SECTIONS ── */
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;background:var(--bg2);margin-bottom:0}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 25s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{display:inline-flex;align-items:center;gap:8px;padding:0 28px;font-family:var(--mono);font-size:12px;color:var(--fg-muted);border-right:1px solid var(--border)}
+.marquee-item span{color:var(--accent);font-weight:600}
+
+/* FEATURED WORK BENTO */
+.bento-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;margin-bottom:24px}
+.bento-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;position:relative;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .2s}
+.bento-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 20px 60px rgba(0,0,0,.5);border-color:var(--border2)}
+.bento-card.span2{grid-column:span 2}
+.bento-card.tall{grid-row:span 2}
+.bento-cover{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.bento-card.span2 .bento-cover{height:200px}
+.bento-body{padding:18px}
+.bento-tag{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;opacity:.8}
+.bento-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.bento-desc{font-size:13px;color:var(--fg-muted);line-height:1.5}
+.bento-arrow{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:var(--glow);border:1px solid rgba(0,212,170,.2);display:flex;align-items:center;justify-content:center;font-size:14px;transition:transform .2s,background .2s}
+.bento-card:hover .bento-arrow{transform:translate(2px,-2px);background:var(--accent);color:#000}
+
+/* PROCESS SECTION */
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-bottom:48px}
+.process-steps::before{content:"";position:absolute;top:28px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);opacity:.3}
+.process-step{text-align:center;padding:24px 16px;position:relative}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--bg2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;color:var(--accent);margin:0 auto 16px;position:relative;z-index:1;transition:border-color .2s,box-shadow .2s}
+.process-step:hover .step-num{border-color:var(--accent);box-shadow:0 0 20px var(--glow)}
+.step-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--fg-muted);line-height:1.5}
+
+/* OPEN SOURCE COUNTER */
+.oss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.oss-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:20px;text-align:center;transition:transform .2s,border-color .2s}
+.oss-card:hover{transform:translateY(-3px);border-color:rgba(0,212,170,.3)}
+.oss-num{font-family:var(--serif);font-size:32px;color:var(--accent);line-height:1;margin-bottom:4px}
+.oss-label{font-size:11px;color:var(--fg-muted);font-family:var(--mono);letter-spacing:.5px}
+.oss-sub{font-size:10px;color:var(--fg-dim);margin-top:2px}
+
+/* AVAILABILITY BANNER */
+.avail-banner{background:linear-gradient(135deg,rgba(0,212,170,.08),rgba(0,136,255,.08));border:1px solid rgba(0,212,170,.2);border-radius:var(--r2);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:48px}
+.avail-banner-left{display:flex;align-items:center;gap:16px}
+.avail-pulse{width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--glow);animation:ripple 2s infinite}
+@keyframes ripple{0%{box-shadow:0 0 0 0 rgba(0,212,170,.4)}70%{box-shadow:0 0 0 14px rgba(0,212,170,0)}100%{box-shadow:0 0 0 0 rgba(0,212,170,0)}}
+.avail-banner h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.avail-banner p{font-size:13px;color:var(--fg-muted)}
+
+/* SKILLS SHOWCASE */
+.skills-orbit{display:flex;flex-wrap:wrap;gap:10px;padding:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:16px}
+.orbit-tag{padding:8px 16px;border-radius:20px;font-family:var(--mono);font-size:12px;border:1px solid var(--border2);background:var(--bg3);color:var(--fg-muted);cursor:default;transition:all .2s;display:flex;align-items:center;gap:6px}
+.orbit-tag:hover{transform:scale(1.06) translateY(-2px);border-color:var(--accent);color:var(--accent);background:var(--glow);box-shadow:0 4px 16px var(--glow)}
+.orbit-tag .tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* RECENT ACTIVITY FEED */
+.activity-feed{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{width:36px;height:36px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.activity-content{flex:1}
+.activity-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.activity-desc{font-size:12px;color:var(--fg-muted)}
+.activity-time{font-family:var(--mono);font-size:11px;color:var(--fg-dim);white-space:nowrap;padding-left:8px}
+
+/* FEATURED CLIENT LOGOS */
+.clients-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:24px;padding:32px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:48px}
+.client-logo{padding:10px 20px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg3);font-family:var(--mono);font-size:13px;font-weight:700;color:var(--fg-muted);transition:all .2s;cursor:default;letter-spacing:1px}
+.client-logo:hover{color:var(--fg);border-color:var(--border2);transform:translateY(-2px)}
+
+/* FAQ ACCORDION */
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-bottom:48px}
+.faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+.faq-item.open{border-color:rgba(0,212,170,.3)}
+.faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;transition:color .15s}
+.faq-q:hover{color:var(--accent)}
+.faq-chevron{font-size:12px;color:var(--fg-muted);transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-chevron{transform:rotate(180deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.16,1,.3,1),padding .2s}
+.faq-item.open .faq-a{max-height:300px;padding:0 20px 16px}
+.faq-a-inner{font-size:13px;color:var(--fg-muted);line-height:1.7}
 
 /* HIRE ON PLATFORMS SECTION */
 .platforms-section{margin:48px 0}
@@ -294,9 +392,9 @@ textarea{min-height:120px;resize:vertical;padding-top:12px}
 .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:24px;margin-bottom:20px}
 .chart-card h3{font-size:15px;font-weight:600;margin-bottom:20px}
 
-/* MESSAGES — rich inbox */
+/* MESSAGES */
 .msg-list{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:16px}
-.msg-header{padding:16px 20px;border-bottom:1px solid var(--border);font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.msg-header{padding:16px 20px;border-bottom:1px solid var(--border);font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .msg-row{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;font-size:13px;transition:background .15s;cursor:pointer}
 .msg-row:hover{background:var(--bg3)}
 .msg-row:last-child{border-bottom:none}
@@ -310,15 +408,39 @@ textarea{min-height:120px;resize:vertical;padding-top:12px}
 .logout-btn{padding:8px 20px;border-radius:var(--r);border:1px solid #f87171;color:#f87171;background:transparent;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s}
 .logout-btn:hover{background:rgba(248,113,113,.1)}
 
-/* MESSAGE DETAIL MODAL */
-.msg-detail{padding:0}
+/* MESSAGE DETAIL MODAL — ENHANCED */
+.msg-detail{}
 .msg-detail-header{background:var(--bg3);border-radius:var(--r);padding:16px;margin-bottom:16px}
 .msg-detail-field{font-size:12px;color:var(--fg-muted);margin-bottom:4px;font-family:var(--mono)}
 .msg-detail-field span{color:var(--fg);font-weight:500}
 .msg-detail-body{background:var(--bg3);border-radius:var(--r);padding:16px;font-size:14px;line-height:1.7;color:var(--fg-muted);white-space:pre-wrap;word-break:break-word}
 .msg-detail-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.reply-form{margin-top:16px;display:none}
-.reply-form.show{display:block}
+
+/* REPLY COMPOSE */
+.reply-compose{margin-top:20px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);overflow:hidden}
+.reply-compose-header{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;background:var(--bg2)}
+.reply-compose-header span{color:var(--accent);font-family:var(--mono);font-size:11px;font-weight:400}
+.reply-compose textarea{width:100%;padding:14px 16px;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--fg);font-family:var(--sans);font-size:14px;resize:vertical;min-height:120px;outline:none}
+.reply-compose textarea:focus{background:rgba(0,212,170,.02)}
+.reply-compose-footer{padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.reply-btn{padding:8px 20px;background:var(--accent);color:#000;font-weight:700;font-size:13px;border:none;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity .15s,transform .1s}
+.reply-btn:hover{opacity:.88;transform:translateY(-1px)}
+.reply-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.copy-btn-sm{padding:7px 14px;background:var(--bg2);color:var(--fg-muted);font-size:12px;font-weight:500;border:1px solid var(--border2);border-radius:var(--r);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.copy-btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+.reply-status{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:var(--r);display:none}
+.reply-status.sending{background:rgba(0,136,255,.1);color:#0088ff;border:1px solid rgba(0,136,255,.2);display:block}
+.reply-status.ok{background:rgba(0,212,170,.1);color:var(--accent);border:1px solid rgba(0,212,170,.2);display:block}
+.reply-status.fail{background:rgba(248,113,113,.1);color:#f87171;border:1px solid rgba(248,113,113,.2);display:block}
+
+/* REPLY THREAD */
+.reply-thread{margin-top:16px}
+.reply-thread-title{font-size:11px;color:var(--fg-muted);font-family:var(--mono);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.reply-bubble{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;font-size:13px;line-height:1.6}
+.reply-bubble.sent{border-left:3px solid var(--accent)}
+.reply-bubble.sent .rb-from{color:var(--accent);font-weight:600;font-size:11px;font-family:var(--mono);margin-bottom:4px}
+.reply-bubble .rb-body{color:var(--fg-muted)}
+.reply-bubble .rb-time{font-size:10px;color:var(--fg-dim);font-family:var(--mono);margin-top:4px}
 
 /* MAIL STATUS */
 .mail-status{padding:10px 14px;border-radius:var(--r);font-size:12px;font-family:var(--mono);margin-top:8px;display:none}
@@ -347,7 +469,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
 .social-icon{width:32px;height:32px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .15s,border-color .15s,transform .15s;color:var(--fg-muted);text-decoration:none}
 .social-icon:hover{background:var(--glow);border-color:rgba(0,212,170,.3);color:var(--accent);transform:translateY(-2px)}
 
-/* PASSWORD CHANGE */
+/* PASSWORD */
 .pwd-strength{height:3px;border-radius:2px;margin-top:6px;transition:width .3s,background .3s;background:var(--bg3);width:100%}
 .pwd-strength-bar{height:100%;border-radius:2px;transition:width .3s,background .3s}
 
@@ -359,7 +481,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);z-index:800;align-items:center;justify-content:center;padding:24px}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:32px;max-width:600px;width:100%;animation:fadeUp .25s ease;max-height:86vh;overflow-y:auto}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:32px;max-width:640px;width:100%;animation:fadeUp .25s ease;max-height:90vh;overflow-y:auto}
 .modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .modal-title{font-size:20px;font-weight:600}
 .modal-close{background:var(--bg3);border:1px solid var(--border);border-radius:6px;width:28px;height:28px;color:var(--fg-muted);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
@@ -397,21 +519,30 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
   .admin-stats-grid{grid-template-columns:1fr 1fr}
   .arow{grid-template-columns:1fr}
   .arow3{grid-template-columns:1fr}
+  .bento-grid{grid-template-columns:1fr 1fr}
+  .bento-card.span2{grid-column:span 1}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .oss-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:680px){
-  .nav-links,.hire-btn,.nav-btn:not(.theme-btn){display:none}
+  .nav-links,.hire-btn,.nav-btn:not(.theme-btn):not(.notif-bell){display:none}
   .hamburger{display:flex}
   .hero h1{font-size:clamp(36px,9vw,52px)}
   .skills-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr}
   .hero-stats{gap:20px}
   .platforms-grid{grid-template-columns:1fr 1fr}
+  .bento-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .oss-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:440px){
   .admin-stats-grid{grid-template-columns:1fr}
   nav{padding:0 16px}
   .wrap{padding-left:16px;padding-right:16px}
   .platforms-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr}
+  .oss-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -432,6 +563,15 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
   </div>
   <div class="nav-actions">
     <button class="nav-btn theme-btn" id="themeBtn" title="Toggle theme">🌓</button>
+    <!-- NOTIFICATION BELL -->
+    <div class="nav-btn notif-bell" id="notifBellWrap" onclick="toggleNotif(event)" title="Notifications">
+      🔔
+      <div class="notif-dot" id="notifDot"></div>
+      <div class="notif-panel" id="notifPanel">
+        <div class="notif-header">Notifications <button onclick="clearNotifs(event)" style="font-size:11px;background:none;border:none;color:var(--fg-muted);cursor:pointer;font-family:var(--mono)">Clear all</button></div>
+        <div id="notifList"><div class="notif-empty">No new notifications</div></div>
+      </div>
+    </div>
     <button class="hire-btn" onclick="go('hire')">💼 Hire Me</button>
     <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
   </div>
@@ -450,6 +590,12 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
 
 <!-- HOME -->
 <div id="home" class="page active">
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
 <div class="wrap">
   <div class="hero">
     <div class="hero-bg"></div>
@@ -471,8 +617,120 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
     </div>
     <div class="scroll-hint">↓ scroll to explore</div>
   </div>
-</div>
-</div>
+
+  <!-- AVAILABILITY BANNER -->
+  <div class="avail-banner reveal">
+    <div class="avail-banner-left">
+      <div class="avail-pulse"></div>
+      <div>
+        <h3 id="availBannerTitle">Open to New Projects</h3>
+        <p id="availBannerSub">Available for freelance contracts, full-time roles, and consulting. Response within 24h.</p>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="go('contact')" style="white-space:nowrap">Start a Conversation →</button>
+  </div>
+
+  <!-- BENTO FEATURED WORK -->
+  <div class="section-header reveal" style="margin-top:16px"><span class="section-label">Featured</span><h2>Selected Work</h2><div class="section-line"></div></div>
+  <div class="bento-grid reveal" id="bentoGrid">
+    <div class="bento-card span2" onclick="go('projects')" style="background:linear-gradient(135deg,#0e1420,#141c28)">
+      <div class="bento-cover" style="background:linear-gradient(135deg,rgba(0,212,170,.15),rgba(0,136,255,.1));height:220px">
+        <div style="font-size:56px;opacity:.7">🚀</div>
+      </div>
+      <div class="bento-body">
+        <div class="bento-tag">Full Stack</div>
+        <div class="bento-title">SaaS Dashboard Platform</div>
+        <div class="bento-desc">Real-time analytics dashboard serving 200k+ users. React, Node.js, PostgreSQL, Redis.</div>
+      </div>
+      <div class="bento-arrow">↗</div>
+    </div>
+    <div class="bento-card" onclick="go('projects')" style="background:linear-gradient(135deg,#0e1420,#1a0a2e)">
+      <div class="bento-cover" style="background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(0,136,255,.1))">
+        <div style="font-size:40px;opacity:.7">🤖</div>
+      </div>
+      <div class="bento-body">
+        <div class="bento-tag">AI / ML</div>
+        <div class="bento-title">AI Chat Integration</div>
+        <div class="bento-desc">LLM-powered customer support bot with RAG pipeline.</div>
+      </div>
+      <div class="bento-arrow">↗</div>
+    </div>
+    <div class="bento-card" onclick="go('projects')" style="background:linear-gradient(135deg,#0e1420,#0a1e1a)">
+      <div class="bento-cover" style="background:linear-gradient(135deg,rgba(0,212,170,.1),rgba(0,212,170,.05))">
+        <div style="font-size:40px;opacity:.7">📱</div>
+      </div>
+      <div class="bento-body">
+        <div class="bento-tag">Mobile</div>
+        <div class="bento-title">React Native App</div>
+        <div class="bento-desc">Cross-platform fintech app with 50k+ downloads.</div>
+      </div>
+      <div class="bento-arrow">↗</div>
+    </div>
+    <div class="bento-card" onclick="go('projects')" style="background:linear-gradient(135deg,#0e1420,#1a120a)">
+      <div class="bento-cover" style="background:linear-gradient(135deg,rgba(255,107,53,.1),rgba(255,170,0,.08))">
+        <div style="font-size:40px;opacity:.7">⚡</div>
+      </div>
+      <div class="bento-body">
+        <div class="bento-tag">Performance</div>
+        <div class="bento-title">Core Web Vitals Optimization</div>
+        <div class="bento-desc">Lighthouse score 45 → 98. 60% faster load.</div>
+      </div>
+      <div class="bento-arrow">↗</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-bottom:48px"><button class="btn-outline" onclick="go('projects')">View All Projects →</button></div>
+
+  <!-- PROCESS -->
+  <div class="section-header reveal"><span class="section-label">How I Work</span><h2>My Process</h2><div class="section-line"></div></div>
+  <div class="process-steps reveal">
+    <div class="process-step"><div class="step-num">1</div><div class="step-title">Discover</div><div class="step-desc">Understanding your goals, users, and constraints through deep-dive sessions.</div></div>
+    <div class="process-step"><div class="step-num">2</div><div class="step-title">Design</div><div class="step-desc">Wireframes, prototypes, and architecture planning before writing a single line.</div></div>
+    <div class="process-step"><div class="step-num">3</div><div class="step-title">Build</div><div class="step-desc">Iterative development with daily updates, clean code, and rigorous testing.</div></div>
+    <div class="process-step"><div class="step-num">4</div><div class="step-title">Launch</div><div class="step-desc">Deployment, monitoring, and ongoing support to ensure a smooth go-live.</div></div>
+  </div>
+
+  <!-- OSS STATS -->
+  <div class="section-header reveal" style="margin-top:48px"><span class="section-label">Open Source</span><h2>By The Numbers</h2><div class="section-line"></div></div>
+  <div class="oss-grid reveal">
+    <div class="oss-card"><div class="oss-num" id="ossStars">3.4k</div><div class="oss-label">GitHub Stars</div><div class="oss-sub">across all repos</div></div>
+    <div class="oss-card"><div class="oss-num">47</div><div class="oss-label">Repos</div><div class="oss-sub">public projects</div></div>
+    <div class="oss-card"><div class="oss-num">1.2k</div><div class="oss-label">Commits</div><div class="oss-sub">this year</div></div>
+    <div class="oss-card"><div class="oss-num">230</div><div class="oss-label">Forks</div><div class="oss-sub">by the community</div></div>
+  </div>
+
+  <!-- SKILLS ORBIT -->
+  <div class="section-header reveal"><span class="section-label">Tech</span><h2>Skills &amp; Stack</h2><div class="section-line"></div></div>
+  <div class="skills-orbit reveal" id="homeSkillsOrbit"></div>
+
+  <!-- TRUSTED BY -->
+  <div class="section-header reveal" style="margin-top:48px"><span class="section-label">Experience</span><h2>Trusted By</h2><div class="section-line"></div></div>
+  <div class="clients-row reveal" id="clientsRow">
+    <div class="client-logo">TECHCORP</div>
+    <div class="client-logo">STARTUPXYZ</div>
+    <div class="client-logo">FINOVA</div>
+    <div class="client-logo">SHOPEASY</div>
+    <div class="client-logo">AGENCYCR</div>
+    <div class="client-logo">CLOUDBASE</div>
+  </div>
+
+  <!-- RECENT ACTIVITY -->
+  <div class="section-header reveal"><span class="section-label">Live</span><h2>Recent Activity</h2><div class="section-line"></div></div>
+  <div class="card reveal" style="margin-bottom:48px">
+    <div class="activity-feed" id="activityFeed">
+      <div class="activity-item"><div class="activity-icon">⭐</div><div class="activity-content"><div class="activity-title">Repo starred: react-ui-kit</div><div class="activity-desc">Someone starred your open source UI component library</div></div><div class="activity-time">2h ago</div></div>
+      <div class="activity-item"><div class="activity-icon">🔀</div><div class="activity-content"><div class="activity-title">Pull request merged</div><div class="activity-desc">Feature: Add dark mode support to dashboard</div></div><div class="activity-time">5h ago</div></div>
+      <div class="activity-item"><div class="activity-icon">📝</div><div class="activity-content"><div class="activity-title">New blog post published</div><div class="activity-desc">"Optimizing React at Scale — 10 patterns I use daily"</div></div><div class="activity-time">1d ago</div></div>
+      <div class="activity-item"><div class="activity-icon">🚀</div><div class="activity-content"><div class="activity-title">Deployed to production</div><div class="activity-desc">SaaS dashboard v3.2.1 — performance improvements</div></div><div class="activity-time">2d ago</div></div>
+      <div class="activity-item"><div class="activity-icon">🍴</div><div class="activity-content"><div class="activity-title">New fork: node-api-starter</div><div class="activity-desc">Your starter template was forked by 3 developers</div></div><div class="activity-time">3d ago</div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-header reveal"><span class="section-label">Questions</span><h2>FAQ</h2><div class="section-line"></div></div>
+  <div class="faq-list reveal" id="faqList"></div>
+
+</div><!-- /wrap -->
+</div><!-- /home -->
 
 <!-- ABOUT -->
 <div id="about" class="page">
@@ -520,36 +778,16 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
 <div id="hire" class="page">
 <div class="wrap">
   <div class="section-header reveal"><span class="section-label">Freelance</span><h2>Hire Me On</h2><div class="section-line"></div></div>
-  <p class="reveal" style="font-size:16px;color:var(--fg-muted);max-width:600px;margin-bottom:40px;line-height:1.7">
-    I'm available for freelance projects, full-time roles, and consulting. Find me on these platforms or reach out directly.
-  </p>
+  <p class="reveal" style="font-size:16px;color:var(--fg-muted);max-width:600px;margin-bottom:40px;line-height:1.7">I'm available for freelance projects, full-time roles, and consulting. Find me on these platforms or reach out directly.</p>
   <div class="platforms-grid" id="platformsGrid"></div>
-
   <div class="section-header reveal" style="margin-top:64px"><span class="section-label">Why Me</span><h2>What You Get</h2><div class="section-line"></div></div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:48px">
-    <div class="card reveal reveal-delay-1" style="text-align:center">
-      <div style="font-size:32px;margin-bottom:12px">⚡</div>
-      <div style="font-weight:700;margin-bottom:8px">Fast Delivery</div>
-      <div style="font-size:13px;color:var(--fg-muted)">On-time, every time. Milestones tracked and communicated proactively.</div>
-    </div>
-    <div class="card reveal reveal-delay-2" style="text-align:center">
-      <div style="font-size:32px;margin-bottom:12px">💎</div>
-      <div style="font-weight:700;margin-bottom:8px">Top Quality</div>
-      <div style="font-size:13px;color:var(--fg-muted)">Clean code, tested, documented, and production-ready from day one.</div>
-    </div>
-    <div class="card reveal reveal-delay-3" style="text-align:center">
-      <div style="font-size:32px;margin-bottom:12px">💬</div>
-      <div style="font-weight:700;margin-bottom:8px">Clear Communication</div>
-      <div style="font-size:13px;color:var(--fg-muted)">Daily updates, quick replies, and no surprises at the finish line.</div>
-    </div>
-    <div class="card reveal reveal-delay-4" style="text-align:center">
-      <div style="font-size:32px;margin-bottom:12px">🔄</div>
-      <div style="font-weight:700;margin-bottom:8px">Unlimited Revisions</div>
-      <div style="font-size:13px;color:var(--fg-muted)">Your satisfaction is the goal. Revisions until it's perfect.</div>
-    </div>
+    <div class="card reveal reveal-delay-1" style="text-align:center"><div style="font-size:32px;margin-bottom:12px">⚡</div><div style="font-weight:700;margin-bottom:8px">Fast Delivery</div><div style="font-size:13px;color:var(--fg-muted)">On-time, every time. Milestones tracked and communicated proactively.</div></div>
+    <div class="card reveal reveal-delay-2" style="text-align:center"><div style="font-size:32px;margin-bottom:12px">💎</div><div style="font-weight:700;margin-bottom:8px">Top Quality</div><div style="font-size:13px;color:var(--fg-muted)">Clean code, tested, documented, and production-ready from day one.</div></div>
+    <div class="card reveal reveal-delay-3" style="text-align:center"><div style="font-size:32px;margin-bottom:12px">💬</div><div style="font-weight:700;margin-bottom:8px">Clear Communication</div><div style="font-size:13px;color:var(--fg-muted)">Daily updates, quick replies, and no surprises at the finish line.</div></div>
+    <div class="card reveal reveal-delay-4" style="text-align:center"><div style="font-size:32px;margin-bottom:12px">🔄</div><div style="font-weight:700;margin-bottom:8px">Unlimited Revisions</div><div style="font-size:13px;color:var(--fg-muted)">Your satisfaction is the goal. Revisions until it's perfect.</div></div>
   </div>
-
-  <div class="section-header reveal" style="margin-top:24px"><span class="section-label">Quick Contact</span><h2>Start a Project</h2><div class="section-line"></div></div>
+  <div class="section-header reveal"><span class="section-label">Quick Contact</span><h2>Start a Project</h2><div class="section-line"></div></div>
   <div class="contact-avail reveal" style="margin-bottom:24px"><div class="avail-dot"></div><div class="avail-text"><h4>Currently accepting new projects</h4><p>Response within 24 hours · Free consultation call available</p></div></div>
   <button class="btn-primary reveal" onclick="go('contact')" style="font-size:15px;padding:16px 32px">📬 Send Me a Project Brief →</button>
 </div>
@@ -570,10 +808,20 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
   <div class="contact-grid">
     <div class="contact-info reveal reveal-delay-1">
       <div class="contact-avail"><div class="avail-dot"></div><div class="avail-text"><h4>Open to opportunities</h4><p>Available for freelance &amp; full-time roles</p></div></div>
-      <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-label">Email</div><div class="contact-val" id="contactEmailEl" style="cursor:pointer" onclick="copyEmail()" title="Click to copy">alex@morgan.dev</div></div></div>
+      <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-label">Email</div><div style="display:flex;align-items:center;gap:8px"><div class="contact-val" id="contactEmailEl" style="cursor:pointer" onclick="copyEmail()" title="Click to copy">alex@morgan.dev</div><button onclick="copyEmail()" style="font-size:10px;padding:3px 8px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--fg-muted);cursor:pointer" id="copyEmailBtn">Copy</button></div></div></div>
       <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-val" id="contactLocEl">San Francisco, CA (UTC-8)</div></div></div>
       <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-label">Response Time</div><div class="contact-val">Usually within 24 hours</div></div></div>
       <div class="contact-item"><div class="contact-icon">🕐</div><div><div class="contact-label">Working Hours</div><div class="contact-val" id="contactHoursEl">Mon–Fri, 9am–6pm</div></div></div>
+      <!-- QUICK COPY LINKS -->
+      <div class="card" style="padding:16px;margin-top:4px">
+        <div style="font-size:11px;font-family:var(--mono);color:var(--fg-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Quick Copy</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <button class="copy-btn-sm" onclick="copyToClip(SD.email,'Email')">📧 Email</button>
+          <button class="copy-btn-sm" onclick="copyToClip(SD.links.github,'GitHub URL')">⌥ GitHub</button>
+          <button class="copy-btn-sm" onclick="copyToClip(SD.links.linkedin,'LinkedIn URL')">in LinkedIn</button>
+          <button class="copy-btn-sm" onclick="copyToClip(SD.links.twitter,'Twitter URL')">𝕏 Twitter</button>
+        </div>
+      </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a id="btnGitHub" href="#" target="_blank" rel="noopener" class="btn-outline" style="font-size:13px;padding:9px 18px">⌥ GitHub</a>
         <a id="btnLinkedIn" href="#" target="_blank" rel="noopener" class="btn-outline" style="font-size:13px;padding:9px 18px">in LinkedIn</a>
@@ -694,6 +942,11 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
         <div id="testiEditor"></div>
         <button class="save-btn" style="margin-top:8px" onclick="saveTestis()">💾 Save &amp; Apply</button>
       </div>
+      <div class="admin-card">
+        <h3>❓ FAQ <button class="add-btn" onclick="addFAQ()">＋ Add FAQ</button></h3>
+        <div id="faqEditor"></div>
+        <button class="save-btn" style="margin-top:8px" onclick="saveFAQ()">💾 Save &amp; Apply</button>
+      </div>
     </div>
 
     <!-- SKILLS -->
@@ -752,12 +1005,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
     <div class="admin-panel" id="tab-mail">
       <div class="admin-card">
         <h3>📧 Email / SMTP Configuration <button class="save-btn" onclick="saveMailConfig()">💾 Save Config</button></h3>
-        <div class="info-box">
-          <strong>📌 How it works</strong>
-          Contact form messages are always saved locally (Admin → Messages). If you configure a <code>mail.php</code> backend, messages will ALSO be emailed to you in real time.<br><br>
-          <strong>Option 1 — Simple mail.php:</strong> Place the generated <code>mail.php</code> file in your server root.<br>
-          <strong>Option 2 — SMTP:</strong> Use PHPMailer or similar with your SMTP credentials.
-        </div>
+        <div class="info-box"><strong>📌 How it works</strong>Contact form messages are always saved locally (Admin → Messages). If you configure a <code>mail.php</code> backend, messages will ALSO be emailed to you in real time.<br><br><strong>Option 1 — Simple mail.php:</strong> Place the generated <code>mail.php</code> file in your server root.<br><strong>Option 2 — SMTP:</strong> Use PHPMailer or similar with your SMTP credentials.</div>
         <div class="arow">
           <div class="afield"><label>Mail Backend URL</label><input class="ainput" id="a_mailUrl" placeholder="https://yoursite.com/mail.php"/></div>
           <div class="afield"><label>Recipient Email (your inbox)</label><input class="ainput" id="a_mailTo" type="email" placeholder="you@yoursite.com"/></div>
@@ -771,13 +1019,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
           <div class="afield"><label>SMTP Password / App Password</label><input class="ainput" type="password" id="a_smtpPass" placeholder="••••••••"/></div>
         </div>
         <div class="arow">
-          <div class="afield"><label>Encryption</label>
-            <select class="ainput" id="a_smtpEnc" style="padding:9px 12px">
-              <option value="tls">TLS (Recommended — Port 587)</option>
-              <option value="ssl">SSL (Port 465)</option>
-              <option value="none">None (Port 25)</option>
-            </select>
-          </div>
+          <div class="afield"><label>Encryption</label><select class="ainput" id="a_smtpEnc" style="padding:9px 12px"><option value="tls">TLS (Recommended — Port 587)</option><option value="ssl">SSL (Port 465)</option><option value="none">None (Port 25)</option></select></div>
           <div class="afield"><label>From Name</label><input class="ainput" id="a_mailFrom" placeholder="Portfolio Contact Form"/></div>
         </div>
         <div style="margin-top:8px">
@@ -788,7 +1030,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
       </div>
       <div class="admin-card">
         <h3>📋 Generated mail.php</h3>
-        <p style="font-size:12px;color:var(--fg-muted);margin-bottom:12px">Upload this file to your web server root. Fill in SMTP credentials directly in the file or let admin settings populate them.</p>
+        <p style="font-size:12px;color:var(--fg-muted);margin-bottom:12px">Upload this file to your web server root.</p>
         <textarea class="ainput atextarea" id="mailPhpPreview" style="min-height:320px;font-family:var(--mono);font-size:11px;line-height:1.6" readonly></textarea>
         <button class="save-btn" style="margin-top:12px" onclick="downloadMailPHP()">⬇ Download mail.php</button>
       </div>
@@ -821,19 +1063,32 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
       </div>
     </div>
 
-    <!-- MESSAGES -->
+    <!-- MESSAGES — ENHANCED -->
     <div class="admin-panel" id="tab-messages">
+      <!-- SEARCH + FILTER BAR -->
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+        <input id="msgSearch" class="ainput" placeholder="🔍 Search messages…" style="flex:1;min-width:200px" oninput="renderMsgs()"/>
+        <select id="msgFilter" class="ainput" style="width:160px;padding:9px 12px" onchange="renderMsgs()">
+          <option value="all">All Messages</option>
+          <option value="unread">Unread Only</option>
+          <option value="read">Read Only</option>
+          <option value="starred">Starred</option>
+        </select>
+        <button class="add-btn" onclick="exportMsgs()">📥 Export CSV</button>
+      </div>
       <div class="msg-list">
         <div class="msg-header">
-          📬 Received Messages <span class="badge" id="msgBadge">0</span>
-          <div style="display:flex;gap:8px;align-items:center">
+          📬 Messages <span class="badge" id="msgBadge">0</span>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
             <span style="font-size:11px;color:var(--fg-muted);font-family:var(--mono)" id="unreadNote"></span>
             <button class="add-btn" onclick="markAllRead()" style="padding:5px 10px;font-size:11px">✓ Mark all read</button>
           </div>
         </div>
         <div id="msgRows"></div>
       </div>
-      <button class="del-btn" onclick="clearMsgs()">🗑 Clear All Messages</button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="del-btn" onclick="clearMsgs()">🗑 Clear All Messages</button>
+      </div>
     </div>
 
     <div style="padding-top:16px;border-top:1px solid var(--border);margin-top:16px">
@@ -850,6 +1105,9 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
     <div id="modalBody"></div>
   </div>
 </div>
+
+<!-- GLOBAL COPY TOAST -->
+<div id="copyToast" style="position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--bg2);border:1px solid var(--border2);color:var(--fg);padding:10px 20px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:9001;transition:transform .3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.4)">Copied!</div>
 
 <!-- FOOTER -->
 <footer>
@@ -885,7 +1143,7 @@ footer{border-top:1px solid var(--border);background:var(--bg2);padding:40px 24p
     </div>
     <div class="footer-bottom">
       <span>© <span id="footerYear"></span> <span id="footerNameRef">Alex Morgan</span>. Built with ❤️ &amp; lots of ☕</span>
-      <span style="font-family:var(--mono)">v4.0.0 — Always improving</span>
+      <span style="font-family:var(--mono)">v5.0.0 — Always improving</span>
     </div>
   </div>
 </footer>
@@ -908,31 +1166,7 @@ const SD = {
   stats:[47,32,3471,6],
   links:{github:'https://github.com/',linkedin:'https://linkedin.com/',twitter:'https://twitter.com/',opensource:'https://github.com/',events:'https://sessionize.com/',cvurl:''},
   mailConfig:{url:'',to:'',smtpHost:'smtp.gmail.com',smtpPort:'587',smtpUser:'',smtpPass:'',smtpEnc:'tls',fromName:'Portfolio Contact Form'},
-  cvtext:`ALEX MORGAN — Full Stack Developer
-=====================================
-Email:    alex@morgan.dev
-GitHub:   https://github.com/alexmorgan
-Location: San Francisco, CA
-
-EXPERIENCE
-----------
-Senior Full Stack Engineer — TechCorp Inc (2024–Present)
-  Leading frontend architecture for a SaaS platform serving 200k+ users.
-
-Full Stack Developer — StartupXYZ (2022–2024)
-  Delivered 12 features end-to-end, reduced page load by 40%.
-
-Frontend Developer — Agency Creative (2020–2022)
-  Built marketing sites for Fortune 500 clients.
-
-EDUCATION
----------
-B.Sc. Computer Science — MIT (2018–2020)
-
-SKILLS
-------
-React/Next.js, TypeScript, Node.js, Python, PostgreSQL,
-Docker, AWS, GraphQL, Rust, Go, Redis, Tailwind CSS`,
+  cvtext:`ALEX MORGAN — Full Stack Developer\n=====================================\nEmail:    alex@morgan.dev\nGitHub:   https://github.com/alexmorgan\nLocation: San Francisco, CA\n\nEXPERIENCE\n----------\nSenior Full Stack Engineer — TechCorp Inc (2024–Present)\n  Leading frontend architecture for a SaaS platform serving 200k+ users.\n\nFull Stack Developer — StartupXYZ (2022–2024)\n  Delivered 12 features end-to-end, reduced page load by 40%.\n\nFrontend Developer — Agency Creative (2020–2022)\n  Built marketing sites for Fortune 500 clients.\n\nEDUCATION\n---------\nB.Sc. Computer Science — MIT (2018–2020)\n\nSKILLS\n------\nReact/Next.js, TypeScript, Node.js, Python, PostgreSQL,\nDocker, AWS, GraphQL, Rust, Go, Redis, Tailwind CSS`,
   skills:[
     {name:'React / Next.js',pct:95},{name:'Node.js',pct:88},
     {name:'TypeScript',pct:90},{name:'PostgreSQL',pct:82},
@@ -970,14 +1204,101 @@ Docker, AWS, GraphQL, Rust, Go, Redis, Tailwind CSS`,
   ],
   customProjects:[],
   messages:[],
-  adminPwdHash:null
+  faq:[
+    {q:'What technologies do you work with?',a:'I work across the full stack — React, Next.js, TypeScript on the frontend; Node.js, Python, Go on the backend; PostgreSQL, Redis for data; Docker and AWS/GCP for infrastructure.'},
+    {q:'How long does a typical project take?',a:'It depends on scope. A simple landing page: 1–2 weeks. A full web app: 4–12 weeks. I provide a detailed estimate after an initial discovery call.'},
+    {q:'Do you offer post-launch support?',a:'Yes! I offer 30 days of free bug fixes post-launch, and ongoing maintenance retainers starting at $500/month.'},
+    {q:'What is your rate?',a:'My hourly rate is $120–180/hr depending on the project. I also offer fixed-price packages for defined scopes. Happy to discuss on a call.'},
+    {q:'Can you work with an existing codebase?',a:'Absolutely. I regularly join projects mid-way. I always start with a code audit to understand the architecture before making changes.'},
+  ],
+  adminPwdHash:null,
+  notifications:[]
 };
 
 /* ══ HELPERS ══ */
 function simpleHash(s){let h=0;for(let i=0;i<s.length;i++){h=(Math.imul(31,h)+s.charCodeAt(i))|0;}return h.toString(36)}
-function loadSD(){try{const s=localStorage.getItem('_pSD4');if(s)Object.assign(SD,JSON.parse(s));}catch(e){}}
-function saveSD(){try{localStorage.setItem('_pSD4',JSON.stringify(SD));}catch(e){}}
+function loadSD(){try{const s=localStorage.getItem('_pSD5');if(s)Object.assign(SD,JSON.parse(s));}catch(e){}}
+function saveSD(){try{localStorage.setItem('_pSD5',JSON.stringify(SD));}catch(e){}}
 loadSD();
+
+/* ══════════════════════════════════════
+   NOTIFICATIONS
+══════════════════════════════════════ */
+function addNotif(title,sub){
+  if(!SD.notifications)SD.notifications=[];
+  SD.notifications.unshift({title,sub,time:new Date().toLocaleTimeString(),id:Date.now()});
+  if(SD.notifications.length>20)SD.notifications.pop();
+  saveSD();renderNotifs();
+}
+function renderNotifs(){
+  const list=document.getElementById('notifList');
+  const dot=document.getElementById('notifDot');
+  const notifs=SD.notifications||[];
+  if(!notifs.length){list.innerHTML='<div class="notif-empty">No new notifications</div>';dot.classList.remove('show');return;}
+  dot.classList.add('show');
+  list.innerHTML=notifs.slice(0,8).map(n=>`
+    <div class="notif-item" onclick="closeNotifPanel()">
+      <div class="n-title">${n.title}</div>
+      <div class="n-sub">${n.sub}</div>
+      <div class="n-time">${n.time}</div>
+    </div>`).join('');
+}
+function toggleNotif(e){e.stopPropagation();document.getElementById('notifPanel').classList.toggle('open')}
+function closeNotifPanel(){document.getElementById('notifPanel').classList.remove('open')}
+function clearNotifs(e){e.stopPropagation();SD.notifications=[];saveSD();renderNotifs();document.getElementById('notifDot').classList.remove('show')}
+document.addEventListener('click',()=>closeNotifPanel());
+renderNotifs();
+
+/* ══════════════════════════════════════
+   MARQUEE
+══════════════════════════════════════ */
+function buildMarquee(){
+  const items=['React','TypeScript','Node.js','PostgreSQL','Docker','AWS','GraphQL','Next.js','Python','Rust','Redis','Tailwind'];
+  const html=items.map(i=>`<div class="marquee-item"><span>✦</span>${i}</div>`).join('');
+  const el=document.getElementById('marqueeTrack');
+  if(el)el.innerHTML=html+html; // double for seamless loop
+}
+buildMarquee();
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+function renderFAQ(){
+  const el=document.getElementById('faqList');if(!el)return;
+  const faqs=SD.faq||[];
+  el.innerHTML=faqs.map((f,i)=>`
+    <div class="faq-item" id="faqItem${i}">
+      <div class="faq-q" onclick="toggleFAQ(${i})">${f.q}<span class="faq-chevron">▼</span></div>
+      <div class="faq-a"><div class="faq-a-inner">${f.a}</div></div>
+    </div>`).join('');
+}
+function toggleFAQ(i){document.getElementById('faqItem'+i).classList.toggle('open')}
+function buildFAQEditor(){
+  const ed=document.getElementById('faqEditor');if(!ed)return;
+  const faqs=SD.faq||[];
+  ed.innerHTML=faqs.map((f,i)=>`
+    <div class="editor-row">
+      <div class="editor-row-body">
+        <input class="ainput" data-f="q" value="${esc(f.q)}" placeholder="Question" style="font-size:12px;margin-bottom:8px;width:100%"/>
+        <textarea class="ainput atextarea" data-f="a" style="min-height:64px;font-size:12px">${esc(f.a)}</textarea>
+      </div>
+      <button class="del-btn" onclick="this.closest('.editor-row').remove()">✕</button>
+    </div>`).join('');
+}
+function addFAQ(){
+  const d=document.createElement('div');d.className='editor-row';
+  d.innerHTML=`<div class="editor-row-body"><input class="ainput" data-f="q" placeholder="Question" style="font-size:12px;margin-bottom:8px;width:100%"/><textarea class="ainput atextarea" data-f="a" placeholder="Answer…" style="min-height:64px;font-size:12px"></textarea></div><button class="del-btn" onclick="this.closest('.editor-row').remove()">✕</button>`;
+  document.getElementById('faqEditor').appendChild(d);
+}
+function saveFAQ(){
+  SD.faq=[];
+  document.querySelectorAll('#faqEditor .editor-row').forEach(r=>{
+    const q=r.querySelector('[data-f="q"]').value.trim();
+    const a=r.querySelector('[data-f="a"]').value.trim();
+    if(q)SD.faq.push({q,a});
+  });
+  saveSD();renderFAQ();showST();
+}
 
 /* ══════════════════════════════════════
    APPLY ALL
@@ -1001,6 +1322,9 @@ function applyAll(){
   setHref('footerOS',L.opensource||L.github);setHref('footerEV',L.events);
   const tags=document.getElementById('techTags');
   if(tags)tags.innerHTML=(SD.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  // Skills orbit on home page
+  const so=document.getElementById('homeSkillsOrbit');
+  if(so)so.innerHTML=(SD.tags||[]).map(t=>`<div class="orbit-tag"><div class="tag-dot"></div>${t}</div>`).join('');
   const tl=document.getElementById('timeline');
   if(tl)tl.innerHTML=(SD.timeline||[]).map((t,i)=>`
     <div class="tl-item reveal" style="animation-delay:${i*0.1}s">
@@ -1025,8 +1349,8 @@ function applyAll(){
     </div>`).join('');
   renderPlatforms();
   renderSkills();
+  renderFAQ();
   const fy=document.getElementById('footerYear');if(fy)fy.textContent=new Date().getFullYear();
-  // mail method note
   const mn=document.getElementById('mailMethodNote');
   if(mn)mn.textContent=SD.mailConfig&&SD.mailConfig.url
     ?'📧 Messages saved locally & emailed via '+SD.mailConfig.url
@@ -1038,8 +1362,7 @@ function applyAll(){
    PLATFORMS
 ══════════════════════════════════════ */
 function renderPlatforms(){
-  const pg=document.getElementById('platformsGrid');
-  if(!pg)return;
+  const pg=document.getElementById('platformsGrid');if(!pg)return;
   const platforms=SD.platforms||[];
   if(!platforms.length){pg.innerHTML='<div style="color:var(--fg-muted);font-size:13px">No platforms configured. Add them in Admin → Platforms.</div>';return;}
   pg.innerHTML=platforms.map((p,i)=>`
@@ -1085,6 +1408,8 @@ async function fetchGH(){
     renderGH();renderProjs();
     const totalStars=ghRepos.reduce((s,r)=>s+(r.stargazers_count||0),0);
     animCount('cnt3',totalStars,'+');
+    const ossEl=document.getElementById('ossStars');
+    if(ossEl)ossEl.textContent=(totalStars>999?(totalStars/1000).toFixed(1)+'k':totalStars);
   }catch(e){
     document.getElementById('ghSection').innerHTML=`<div style="padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);font-size:13px;color:var(--fg-muted)">⚠️ GitHub API unavailable or username not found. Set your username in Admin → Profile.</div>`;
     document.getElementById('ghReposNote').textContent='📁 Set GitHub username in Admin → Profile to load real repos';
@@ -1229,7 +1554,7 @@ async function fetchBlog(){
 }
 
 /* ══════════════════════════════════════
-   CONTACT FORM — WITH EMAIL SENDING
+   CONTACT FORM
 ══════════════════════════════════════ */
 function updateChar(){document.getElementById('charN').textContent=document.getElementById('cMsg').value.length}
 function setErr(id,eid,show){document.getElementById(id).classList.toggle('err',show);document.getElementById(eid).classList.toggle('show',show)}
@@ -1244,17 +1569,16 @@ document.getElementById('contactForm').addEventListener('submit',async e=>{
   setErr('cName','eN',!n);setErr('cEmail','eE',!em||!re.test(em));setErr('cMsg','eM',!m);
   if(!n||!em||!re.test(em)||!m)return;
 
-  // Save locally
-  const msgObj={id:Date.now(),name:n,email:em,subject:sub,message:m,time:new Date().toLocaleString(),read:false};
+  const msgObj={id:Date.now(),name:n,email:em,subject:sub,message:m,time:new Date().toLocaleString(),read:false,starred:false,replies:[]};
   SD.messages.push(msgObj);
   saveSD();updateBadge();
+  // Push notification
+  addNotif('📬 New message from '+n, sub||m.slice(0,40));
 
-  // Try to send via mail.php
   const btn=document.getElementById('submitBtn');
   const status=document.getElementById('mailStatus');
   btn.disabled=true;btn.textContent='⏳ Sending…';
-  status.className='mail-status sending';
-  status.style.display='flex';
+  status.className='mail-status sending';status.style.display='flex';
   status.innerHTML='<span class="spin">⟳</span> Sending email…';
 
   const mailUrl=(SD.mailConfig&&SD.mailConfig.url)||'mail.php';
@@ -1272,16 +1596,9 @@ document.getElementById('contactForm').addEventListener('submit',async e=>{
   btn.disabled=false;btn.textContent='🚀 Send Message';
   status.style.display='none';
 
-  if(mailSent){
-    const t=document.getElementById('cToast');t.classList.add('show');
-    e.target.reset();updateChar();
-    setTimeout(()=>t.classList.remove('show'),4000);
-  }else{
-    // Still show success to user (message saved), but notify about email
-    const t=document.getElementById('cToast');t.classList.add('show');
-    e.target.reset();updateChar();
-    setTimeout(()=>t.classList.remove('show'),4000);
-  }
+  const t=document.getElementById('cToast');t.classList.add('show');
+  e.target.reset();updateChar();
+  setTimeout(()=>t.classList.remove('show'),4000);
 });
 
 ['cName','cEmail','cMsg'].forEach((id,i)=>{
@@ -1291,12 +1608,20 @@ document.getElementById('contactForm').addEventListener('submit',async e=>{
   });
 });
 
-function copyEmail(){
-  navigator.clipboard.writeText(SD.email).then(()=>{
-    const el=document.getElementById('contactEmailEl');
-    el.textContent='✅ Copied!';el.style.color='var(--accent)';
-    setTimeout(()=>{el.textContent=SD.email;el.style.color=''},2000);
+function copyEmail(){copyToClip(SD.email,'Email')}
+function copyToClip(text,label){
+  if(!text||text==='#'){showCopyToast('Nothing to copy');return;}
+  navigator.clipboard.writeText(text).then(()=>showCopyToast(label+' copied!')).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    showCopyToast(label+' copied!');
   });
+}
+function showCopyToast(msg){
+  const t=document.getElementById('copyToast');
+  t.textContent=msg;
+  t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>{t.style.transform='translateX(-50%) translateY(60px)'},2000);
 }
 function updateBadge(){
   const c=SD.messages.length;
@@ -1347,11 +1672,8 @@ function checkPwdStrength(){
   const bar=document.getElementById('pwdStrengthBar');
   const lbl=document.getElementById('pwdStrengthLabel');
   let score=0;
-  if(v.length>=6)score++;
-  if(v.length>=10)score++;
-  if(/[A-Z]/.test(v))score++;
-  if(/[0-9]/.test(v))score++;
-  if(/[^A-Za-z0-9]/.test(v))score++;
+  if(v.length>=6)score++;if(v.length>=10)score++;
+  if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
   const levels=[{w:'0%',c:'#f87171',t:'Too short'},{w:'20%',c:'#f87171',t:'Weak'},{w:'45%',c:'#fb923c',t:'Fair'},{w:'70%',c:'#fbbf24',t:'Good'},{w:'90%',c:'#00d4aa',t:'Strong'},{w:'100%',c:'#00d4aa',t:'Very Strong'}];
   const l=levels[score]||levels[0];
   bar.style.width=l.w;bar.style.background=l.c;lbl.textContent=l.t;lbl.style.color=l.c;
@@ -1362,22 +1684,13 @@ function changePassword(){
   const cf=document.getElementById('sec_conf').value;
   const res=document.getElementById('pwdResult');
   res.style.display='block';
-  if(simpleHash(cur)!==getPwd()){
-    res.style.background='rgba(248,113,113,.1)';res.style.color='#f87171';res.style.border='1px solid rgba(248,113,113,.3)';
-    res.textContent='⚠ Current password is incorrect.';return;
-  }
-  if(nw.length<6){
-    res.style.background='rgba(248,113,113,.1)';res.style.color='#f87171';res.style.border='1px solid rgba(248,113,113,.3)';
-    res.textContent='⚠ New password must be at least 6 characters.';return;
-  }
-  if(nw!==cf){
-    res.style.background='rgba(248,113,113,.1)';res.style.color='#f87171';res.style.border='1px solid rgba(248,113,113,.3)';
-    res.textContent='⚠ Passwords do not match.';return;
-  }
+  if(simpleHash(cur)!==getPwd()){res.style.background='rgba(248,113,113,.1)';res.style.color='#f87171';res.style.border='1px solid rgba(248,113,113,.3)';res.textContent='⚠ Current password is incorrect.';return;}
+  if(nw.length<6){res.style.background='rgba(248,113,113,.1)';res.style.color='#f87171';res.style.border='1px solid rgba(248,113,113,.3)';res.textContent='⚠ New password must be at least 6 characters.';return;}
+  if(nw!==cf){res.style.background='rgba(248,113,113,.1)';res.style.color='#f87171';res.style.border='1px solid rgba(248,113,113,.3)';res.textContent='⚠ Passwords do not match.';return;}
   SD.adminPwdHash=simpleHash(nw);saveSD();
   res.style.background='rgba(0,212,170,.1)';res.style.color='var(--accent)';res.style.border='1px solid rgba(0,212,170,.3)';
   res.textContent='✅ Password updated successfully!';
-  document.getElementById('sec_cur').value='';document.getElementById('sec_new').value='';document.getElementById('sec_conf').value='';
+  ['sec_cur','sec_new','sec_conf'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('pwdStrengthBar').style.width='0%';document.getElementById('pwdStrengthLabel').textContent='';
   setTimeout(()=>{res.style.display='none'},3000);
 }
@@ -1402,7 +1715,7 @@ function populateForms(){
   set('a_smtpUser',mc.smtpUser||'');set('a_smtpPass',mc.smtpPass||'');
   set('a_mailFrom',mc.fromName||'Portfolio Contact Form');
   const encSel=document.getElementById('a_smtpEnc');if(encSel)encSel.value=mc.smtpEnc||'tls';
-  buildTLEditor();buildSvcEditor();buildTestiEditor();buildSkillEditor();buildProjEditor();buildPlatformEditor();
+  buildTLEditor();buildSvcEditor();buildTestiEditor();buildSkillEditor();buildProjEditor();buildPlatformEditor();buildFAQEditor();
   renderMsgs();generateMailPHP();
 }
 
@@ -1422,158 +1735,50 @@ function saveLinks(){SD.links={github:document.getElementById('a_lgh').value.tri
 function saveCV(){SD.cvtext=document.getElementById('a_cvtext').value;saveSD();showST()}
 
 function saveMailConfig(){
-  SD.mailConfig={
-    url:document.getElementById('a_mailUrl').value.trim(),
-    to:document.getElementById('a_mailTo').value.trim(),
-    smtpHost:document.getElementById('a_smtpHost').value.trim(),
-    smtpPort:document.getElementById('a_smtpPort').value.trim(),
-    smtpUser:document.getElementById('a_smtpUser').value.trim(),
-    smtpPass:document.getElementById('a_smtpPass').value.trim(),
-    smtpEnc:document.getElementById('a_smtpEnc').value,
-    fromName:document.getElementById('a_mailFrom').value.trim(),
-  };
+  SD.mailConfig={url:document.getElementById('a_mailUrl').value.trim(),to:document.getElementById('a_mailTo').value.trim(),smtpHost:document.getElementById('a_smtpHost').value.trim(),smtpPort:document.getElementById('a_smtpPort').value.trim(),smtpUser:document.getElementById('a_smtpUser').value.trim(),smtpPass:document.getElementById('a_smtpPass').value.trim(),smtpEnc:document.getElementById('a_smtpEnc').value,fromName:document.getElementById('a_mailFrom').value.trim()};
   saveSD();generateMailPHP();applyAll();showST();
 }
 
 async function testMailConfig(){
   saveMailConfig();
   const status=document.getElementById('testMailStatus');
-  status.className='mail-status sending';status.style.display='flex';
-  status.innerHTML='<span class="spin">⟳</span> Sending test email…';
+  status.className='mail-status sending';status.style.display='flex';status.innerHTML='<span class="spin">⟳</span> Sending test email…';
   const mailUrl=(SD.mailConfig&&SD.mailConfig.url)||'mail.php';
   try{
     const fd=new FormData();
     fd.append('name','Test User');fd.append('email',SD.mailConfig.smtpUser||SD.email);
-    fd.append('subject','Test Email from Portfolio Admin');
-    fd.append('message','This is a test email sent from your portfolio admin panel to verify mail configuration is working correctly.');
+    fd.append('subject','Test Email from Portfolio Admin');fd.append('message','This is a test email.');
     fd.append('to',SD.mailConfig.to||SD.email);fd.append('from_name',SD.mailConfig.fromName);
     const res=await fetch(mailUrl,{method:'POST',body:fd,signal:AbortSignal.timeout(8000)});
     const txt=await res.text();
-    if(res.ok&&txt.includes('success')){
-      status.className='mail-status ok';status.innerHTML='✅ Test email sent successfully!';
-    }else{
-      status.className='mail-status fail';status.innerHTML='⚠ Server responded but mail.php reported failure. Check configuration.';
-    }
-  }catch(err){
-    status.className='mail-status fail';
-    status.innerHTML='⚠ Could not reach mail.php at: '+mailUrl+'. Deploy the file to your server first.';
-  }
+    if(res.ok&&txt.includes('success')){status.className='mail-status ok';status.innerHTML='✅ Test email sent!';}
+    else{status.className='mail-status fail';status.innerHTML='⚠ Server responded but reported failure.';}
+  }catch(err){status.className='mail-status fail';status.innerHTML='⚠ Could not reach mail.php at: '+mailUrl;}
 }
 
 function generateMailPHP(){
   const mc=SD.mailConfig||{};
   const php=`<?php
-/**
- * Portfolio Contact Form Handler — Generated by Portfolio Admin
- * Upload this file to your web server root as: mail.php
- * 
- * REQUIREMENTS: PHP 7.4+ with mail() function enabled
- * For SMTP: composer require phpmailer/phpmailer (optional, see below)
- */
-
-// ── CORS ──────────────────────────────────────────────
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo 'Method not allowed'; exit; }
-
-// ── CONFIGURATION ─────────────────────────────────────
-$config = [
-    'to'         => '${esc(mc.to||SD.email)}',       // Your receiving email
-    'from_name'  => '${esc(mc.fromName||'Portfolio Contact Form')}',
-    'smtp_host'  => '${esc(mc.smtpHost||'smtp.gmail.com')}',
-    'smtp_port'  => ${mc.smtpPort||587},
-    'smtp_user'  => '${esc(mc.smtpUser||'')}',
-    'smtp_pass'  => '${esc(mc.smtpPass||'YOUR_APP_PASSWORD')}',
-    'smtp_enc'   => '${mc.smtpEnc||'tls'}',          // tls | ssl | none
-];
-
-// ── INPUT SANITIZATION ────────────────────────────────
-function clean($s) { return htmlspecialchars(strip_tags(trim($s)), ENT_QUOTES, 'UTF-8'); }
-$name    = clean($_POST['name']    ?? '');
-$email   = clean($_POST['email']   ?? '');
-$subject = clean($_POST['subject'] ?? 'Portfolio Contact');
-$message = clean($_POST['message'] ?? '');
-$to      = $config['to'];
-
-if (!$name || !$email || !$message) {
-    http_response_code(400); echo json_encode(['status'=>'error','msg'=>'Missing required fields']); exit;
-}
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400); echo json_encode(['status'=>'error','msg'=>'Invalid email']); exit;
-}
-
-// ── RATE LIMITING (simple file-based) ─────────────────
-$rateFile = sys_get_temp_dir() . '/pf_rate_' . md5($_SERVER['REMOTE_ADDR'] ?? '');
-$now = time();
-if (file_exists($rateFile)) {
-    $last = (int)file_get_contents($rateFile);
-    if ($now - $last < 60) {
-        http_response_code(429); echo json_encode(['status'=>'error','msg'=>'Too many requests']); exit;
-    }
-}
-file_put_contents($rateFile, $now);
-
-// ── EMAIL BODY ────────────────────────────────────────
-$body = "New contact form submission\\n\\n"
-    . "Name:    $name\\n"
-    . "Email:   $email\\n"
-    . "Subject: $subject\\n"
-    . "Date:    " . date('Y-m-d H:i:s') . "\\n"
-    . "IP:      " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . "\\n"
-    . "\\n---\\n\\n"
-    . $message;
-
-$headers  = "From: {$config['from_name']} <{$config['smtp_user'] ?: $to}>\\r\\n";
-$headers .= "Reply-To: $name <$email>\\r\\n";
-$headers .= "X-Mailer: PHP/" . PHP_VERSION . "\\r\\n";
-$headers .= "MIME-Version: 1.0\\r\\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\\r\\n";
-
-// ── SEND (PHP mail() — works on most shared hosting) ──
-// For SMTP/Gmail: install PHPMailer and uncomment the SMTP block below
-$sent = mail($to, "[Portfolio] $subject — from $name", $body, $headers);
-
-/* ── SMTP via PHPMailer (uncomment after: composer require phpmailer/phpmailer) ──
-require 'vendor/autoload.php';
-use PHPMailer\\PHPMailer\\PHPMailer;
-use PHPMailer\\PHPMailer\\SMTP;
-$mail = new PHPMailer(true);
-try {
-    $mail->isSMTP();
-    $mail->Host       = $config['smtp_host'];
-    $mail->SMTPAuth   = true;
-    $mail->Username   = $config['smtp_user'];
-    $mail->Password   = $config['smtp_pass'];
-    $mail->SMTPSecure = $config['smtp_enc'] === 'ssl' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = $config['smtp_port'];
-    $mail->setFrom($config['smtp_user'], $config['from_name']);
-    $mail->addAddress($to);
-    $mail->addReplyTo($email, $name);
-    $mail->Subject = "[Portfolio] $subject — from $name";
-    $mail->Body    = $body;
-    $mail->send();
-    $sent = true;
-} catch (Exception $e) { $sent = false; }
-── end SMTP block ── */
-
-if ($sent) {
-    echo json_encode(['status'=>'success','msg'=>'Email sent']);
-} else {
-    http_response_code(500);
-    echo json_encode(['status'=>'error','msg'=>'mail() failed — check server mail config']);
-}
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); exit; }
+$config=['to'=>'${esc(mc.to||SD.email)}','from_name'=>'${esc(mc.fromName||'Portfolio')}','smtp_host'=>'${esc(mc.smtpHost||'smtp.gmail.com')}','smtp_port'=>${mc.smtpPort||587},'smtp_user'=>'${esc(mc.smtpUser||'')}','smtp_pass'=>'${esc(mc.smtpPass||'YOUR_APP_PASSWORD')}','smtp_enc'=>'${mc.smtpEnc||'tls'}'];
+function clean($s){return htmlspecialchars(strip_tags(trim($s)),ENT_QUOTES,'UTF-8');}
+$name=clean($_POST['name']??'');$email=clean($_POST['email']??'');
+$subject=clean($_POST['subject']??'Portfolio Contact');$message=clean($_POST['message']??'');
+if(!$name||!$email||!$message){http_response_code(400);echo json_encode(['status'=>'error']);exit;}
+$body="From: $name <$email>\\nSubject: $subject\\n\\n$message";
+$headers="From: {$config['from_name']} <{$config['smtp_user']?:$config['to']}>\\r\\nReply-To: $name <$email>\\r\\n";
+$sent=mail($config['to'],"[Portfolio] $subject",$body,$headers);
+echo json_encode(['status'=>$sent?'success':'error']);
 ?>`;
   const el=document.getElementById('mailPhpPreview');if(el)el.value=php;
   return php;
 }
-
 function downloadMailPHP(){
   const php=generateMailPHP();
-  const a=document.createElement('a');
-  a.href='data:text/php;charset=utf-8,'+encodeURIComponent(php);
-  a.download='mail.php';a.click();
+  const a=document.createElement('a');a.href='data:text/php;charset=utf-8,'+encodeURIComponent(php);a.download='mail.php';a.click();
 }
 
 /* ══════════════════════════════════════
@@ -1581,7 +1786,7 @@ function downloadMailPHP(){
 ══════════════════════════════════════ */
 function buildTLEditor(){
   document.getElementById('tlEditor').innerHTML=(SD.timeline||[]).map((t,i)=>`
-    <div class="editor-row" id="tlr${i}">
+    <div class="editor-row">
       <div class="editor-row-body">
         <div class="arow" style="margin-bottom:8px">
           <input class="ainput" data-f="date" value="${esc(t.date)}" placeholder="2024 — Present" style="font-size:12px"/>
@@ -1606,7 +1811,7 @@ function saveTL(){
   saveSD();applyAll();showST();
 }
 
-/* SERVICES EDITOR */
+/* SERVICES */
 function buildSvcEditor(){
   document.getElementById('svcEditor').innerHTML=(SD.services||[]).map((s,i)=>`
     <div class="editor-row">
@@ -1634,7 +1839,7 @@ function saveSvcs(){
   saveSD();applyAll();showST();
 }
 
-/* TESTIMONIALS EDITOR */
+/* TESTIMONIALS */
 function buildTestiEditor(){
   document.getElementById('testiEditor').innerHTML=(SD.testimonials||[]).map((t,i)=>`
     <div class="editor-row">
@@ -1665,7 +1870,7 @@ function saveTestis(){
   saveSD();applyAll();showST();
 }
 
-/* SKILLS EDITOR */
+/* SKILLS */
 function buildSkillEditor(){
   document.getElementById('skillEditor').innerHTML=(SD.skills||[]).map((s,i)=>`
     <div class="skill-editor-row">
@@ -1691,7 +1896,7 @@ function saveSkills(){
   if(document.getElementById('about').classList.contains('active'))animSkills();
 }
 
-/* PROJECTS EDITOR */
+/* PROJECTS */
 function buildProjEditor(){
   if(!SD.customProjects)SD.customProjects=[];
   document.getElementById('projEditor').innerHTML=(SD.customProjects||[]).map((p,i)=>`
@@ -1730,7 +1935,7 @@ function saveProjects(){
   showST();
 }
 
-/* PLATFORMS EDITOR */
+/* PLATFORMS */
 function buildPlatformEditor(){
   if(!SD.platforms)SD.platforms=[];
   document.getElementById('platformEditor').innerHTML=(SD.platforms||[]).map((p,i)=>`
@@ -1742,7 +1947,7 @@ function buildPlatformEditor(){
         </div>
         <div class="arow" style="margin-bottom:8px">
           <input class="ainput" data-f="cls" value="${esc(p.cls||'')}" placeholder="CSS class (e.g. fiverr)" style="font-size:12px"/>
-          <input class="ainput" data-f="badge" value="${esc(p.badge||'')}" placeholder="Badge text e.g. Top Rated" style="font-size:12px"/>
+          <input class="ainput" data-f="badge" value="${esc(p.badge||'')}" placeholder="Badge text" style="font-size:12px"/>
         </div>
         <input class="ainput" data-f="desc" value="${esc(p.desc||'')}" placeholder="Short description" style="font-size:12px;width:100%;margin-bottom:8px"/>
         <input class="ainput" data-f="url" value="${esc(p.url||'')}" placeholder="https://fiverr.com/yourprofile" style="font-size:12px;width:100%"/>
@@ -1752,7 +1957,7 @@ function buildPlatformEditor(){
 }
 function addPlatform(){
   const d=document.createElement('div');d.className='editor-row';
-  d.innerHTML=`<div class="editor-row-body"><div class="arow" style="margin-bottom:8px"><input class="ainput" data-f="logo" value="🌐" style="font-size:12px"/><input class="ainput" data-f="name" placeholder="Platform Name" style="font-size:12px"/></div><div class="arow" style="margin-bottom:8px"><input class="ainput" data-f="cls" placeholder="CSS class (e.g. fiverr)" style="font-size:12px"/><input class="ainput" data-f="badge" placeholder="Badge text" style="font-size:12px"/></div><input class="ainput" data-f="desc" placeholder="Short description" style="font-size:12px;width:100%;margin-bottom:8px"/><input class="ainput" data-f="url" placeholder="https://…" style="font-size:12px;width:100%"/></div><button class="del-btn" onclick="this.closest('.editor-row').remove()">✕</button>`;
+  d.innerHTML=`<div class="editor-row-body"><div class="arow" style="margin-bottom:8px"><input class="ainput" data-f="logo" value="🌐" style="font-size:12px"/><input class="ainput" data-f="name" placeholder="Platform Name" style="font-size:12px"/></div><div class="arow" style="margin-bottom:8px"><input class="ainput" data-f="cls" placeholder="CSS class" style="font-size:12px"/><input class="ainput" data-f="badge" placeholder="Badge text" style="font-size:12px"/></div><input class="ainput" data-f="desc" placeholder="Short description" style="font-size:12px;width:100%;margin-bottom:8px"/><input class="ainput" data-f="url" placeholder="https://…" style="font-size:12px;width:100%"/></div><button class="del-btn" onclick="this.closest('.editor-row').remove()">✕</button>`;
   document.getElementById('platformEditor').appendChild(d);
 }
 function savePlatforms(){
@@ -1765,32 +1970,56 @@ function savePlatforms(){
 }
 
 /* ══════════════════════════════════════
-   MESSAGES
+   MESSAGES — ENHANCED WITH REPLY + COPY
 ══════════════════════════════════════ */
 function renderMsgs(){
   const c=document.getElementById('msgRows');
+  const search=(document.getElementById('msgSearch')?.value||'').toLowerCase();
+  const filter=document.getElementById('msgFilter')?.value||'all';
   updateBadge();
-  if(!SD.messages.length){
-    c.innerHTML='<div style="padding:24px;text-align:center;font-size:13px;color:var(--fg-muted)">No messages yet. Contact form submissions appear here.</div>';
+
+  let msgs=SD.messages.slice();
+  if(search)msgs=msgs.filter(m=>(m.name+m.email+m.subject+m.message).toLowerCase().includes(search));
+  if(filter==='unread')msgs=msgs.filter(m=>!m.read);
+  if(filter==='read')msgs=msgs.filter(m=>m.read);
+  if(filter==='starred')msgs=msgs.filter(m=>m.starred);
+
+  if(!msgs.length){
+    c.innerHTML='<div style="padding:24px;text-align:center;font-size:13px;color:var(--fg-muted)">No messages found.</div>';
     return;
   }
-  c.innerHTML=SD.messages.slice().reverse().map((m,i)=>`
-    <div class="msg-row${m.read?'':' unread'}" onclick="openMsg(${SD.messages.length-1-i})">
+  c.innerHTML=msgs.slice().reverse().map((m)=>{
+    const realIdx=SD.messages.indexOf(m);
+    return`<div class="msg-row${m.read?'':' unread'}" onclick="openMsg(${realIdx})">
       <div class="msg-avatar" style="background:${m.read?'var(--bg3)':'var(--accent)'};color:${m.read?'var(--fg-muted)':'#000'}">${(m.name||'?')[0].toUpperCase()}</div>
       <div style="flex:1;min-width:0">
-        <div class="msg-name">${m.name} — <span style="color:var(--accent2);font-weight:400">${m.email}</span>${m.subject?`<span class="msg-subject-tag">${m.subject}</span>`:''}</div>
+        <div class="msg-name">${m.name} <span style="color:var(--fg-muted);font-weight:400;font-size:12px">&lt;${m.email}&gt;</span>${m.subject?`<span class="msg-subject-tag">${m.subject}</span>`:''}${m.starred?'<span style="color:#fbbf24;margin-left:4px">★</span>':''}</div>
         <div class="msg-preview">${(m.message||'').slice(0,80)}${m.message&&m.message.length>80?'…':''}</div>
+        ${m.replies&&m.replies.length?`<div style="font-size:10px;color:var(--accent);font-family:var(--mono);margin-top:2px">↩ ${m.replies.length} repl${m.replies.length===1?'y':'ies'}</div>`:''}
       </div>
       <div class="msg-time">${m.time||''}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function openMsg(idx){
   const m=SD.messages[idx];
   if(!m)return;
-  // Mark read
   if(!m.read){m.read=true;saveSD();updateBadge();renderMsgs();}
-  document.getElementById('modalTitle').textContent='📧 Message from '+m.name;
+
+  document.getElementById('modalTitle').innerHTML=`📧 Message <span style="font-size:13px;color:var(--fg-muted);font-weight:400">#${idx+1}</span>`;
+
+  const repliesHTML=m.replies&&m.replies.length?`
+    <div class="reply-thread">
+      <div class="reply-thread-title">Reply Thread (${m.replies.length})</div>
+      ${m.replies.map(r=>`
+        <div class="reply-bubble sent">
+          <div class="rb-from">You → ${m.name}</div>
+          <div class="rb-body">${(r.body||'').replace(/</g,'&lt;')}</div>
+          <div class="rb-time">${r.time}</div>
+        </div>`).join('')}
+    </div>`:''
+
   document.getElementById('modalBody').innerHTML=`
     <div class="msg-detail">
       <div class="msg-detail-header">
@@ -1799,22 +2028,124 @@ function openMsg(idx){
         <div class="msg-detail-field">Received: <span>${m.time}</span></div>
       </div>
       <div class="msg-detail-body">${(m.message||'').replace(/</g,'&lt;')}</div>
+
+      <!-- ACTION BUTTONS -->
       <div class="msg-detail-actions">
-        <a href="mailto:${m.email}?subject=Re: ${encodeURIComponent(m.subject||'Your message')}" class="btn-primary" style="font-size:13px;padding:10px 20px;text-decoration:none" target="_blank">📧 Reply in Email Client</a>
+        <a href="mailto:${m.email}?subject=Re: ${encodeURIComponent(m.subject||'Your message')}&body=${encodeURIComponent('Hi '+m.name+',\n\n')}" class="btn-primary" style="font-size:13px;padding:9px 18px;text-decoration:none" target="_blank">📧 Open in Mail App</a>
+        <button class="copy-btn-sm" onclick="copyToClip('${m.email}','Email')">📋 Copy Email</button>
+        <button class="copy-btn-sm" onclick="copyToClip('${m.message.replace(/'/g,"\\'")}','Message')">📋 Copy Message</button>
+        <button class="copy-btn-sm" onclick="toggleStar(${idx})" id="starBtn${idx}">${m.starred?'★ Unstar':'☆ Star'}</button>
         <button class="del-btn" onclick="deleteMsg(${idx});closeModal()">🗑 Delete</button>
       </div>
+
+      ${repliesHTML}
+
+      <!-- COMPOSE REPLY -->
+      <div class="reply-compose">
+        <div class="reply-compose-header">
+          ↩ Reply to ${m.name}
+          <span>→ ${m.email}</span>
+        </div>
+        <textarea id="replyBody_${idx}" placeholder="Type your reply…"></textarea>
+        <div class="reply-compose-footer">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button class="reply-btn" onclick="sendReply(${idx})" id="replyBtn_${idx}">
+              <span>📤</span> Send Reply
+            </button>
+            <button class="copy-btn-sm" onclick="copyReplyAsEmail(${idx})">📋 Copy as Email</button>
+          </div>
+          <span id="replyStatus_${idx}" class="reply-status"></span>
+        </div>
+      </div>
     </div>`;
+
   document.getElementById('modalOverlay').classList.add('open');
 }
 
-function deleteMsg(idx){
-  SD.messages.splice(idx,1);saveSD();renderMsgs();updateBadge();
+async function sendReply(idx){
+  const m=SD.messages[idx];
+  if(!m)return;
+  const body=document.getElementById('replyBody_'+idx)?.value.trim();
+  if(!body){showCopyToast('Please type a reply first');return;}
+
+  const btn=document.getElementById('replyBtn_'+idx);
+  const status=document.getElementById('replyStatus_'+idx);
+  btn.disabled=true;btn.innerHTML='<span class="spin">⟳</span> Sending…';
+  status.className='reply-status sending';status.textContent='Sending via mail.php…';
+
+  const mailUrl=(SD.mailConfig&&SD.mailConfig.url)||'mail.php';
+  let sent=false;
+  try{
+    const fd=new FormData();
+    fd.append('name',SD.name||'Portfolio Owner');
+    fd.append('email',SD.mailConfig?.smtpUser||SD.email);
+    fd.append('subject','Re: '+(m.subject||'Your message'));
+    fd.append('message',body);
+    fd.append('to',m.email);
+    fd.append('from_name',SD.name||'Portfolio');
+    const res=await fetch(mailUrl,{method:'POST',body:fd,signal:AbortSignal.timeout(8000)});
+    const txt=await res.text();
+    sent=res.ok&&txt.includes('success');
+  }catch(e){sent=false;}
+
+  // Always save reply locally
+  if(!m.replies)m.replies=[];
+  m.replies.push({body,time:new Date().toLocaleString(),sent});
+  saveSD();
+
+  btn.disabled=false;btn.innerHTML='<span>📤</span> Send Reply';
+
+  if(sent){
+    status.className='reply-status ok';status.textContent='✅ Reply sent via email!';
+  }else{
+    status.className='reply-status fail';status.textContent='⚠ Could not send email — reply saved locally. Open mail app to send manually.';
+  }
+
+  // Clear textarea and refresh thread display
+  const ta=document.getElementById('replyBody_'+idx);if(ta)ta.value='';
+  // re-render thread
+  openMsg(idx);
 }
-function markAllRead(){
-  SD.messages.forEach(m=>m.read=true);saveSD();renderMsgs();updateBadge();
+
+function copyReplyAsEmail(idx){
+  const m=SD.messages[idx];
+  const body=document.getElementById('replyBody_'+idx)?.value||'(empty)';
+  const text=`To: ${m.email}\nSubject: Re: ${m.subject||'Your message'}\n\nHi ${m.name},\n\n${body}\n\n— ${SD.name}`;
+  copyToClip(text,'Reply email');
 }
-function clearMsgs(){
-  if(confirm('Clear all messages?')){SD.messages=[];saveSD();renderMsgs();updateBadge()}
+
+function toggleStar(idx){
+  const m=SD.messages[idx];if(!m)return;
+  m.starred=!m.starred;saveSD();renderMsgs();
+  // update star button in modal
+  const btn=document.getElementById('starBtn'+idx);
+  if(btn)btn.textContent=m.starred?'★ Unstar':'☆ Star';
+}
+
+function deleteMsg(idx){SD.messages.splice(idx,1);saveSD();renderMsgs();updateBadge();}
+function markAllRead(){SD.messages.forEach(m=>m.read=true);saveSD();renderMsgs();updateBadge();}
+function clearMsgs(){if(confirm('Clear all messages?')){SD.messages=[];saveSD();renderMsgs();updateBadge()}}
+
+function exportMsgs(){
+  if(!SD.messages.length){showCopyToast('No messages to export');return;}
+  const header='ID,Name,Email,Subject,Message,Time,Read,Starred,Replies\n';
+  const rows=SD.messages.map(m=>[
+    m.id,
+    `"${(m.name||'').replace(/"/g,'""')}"`,
+    `"${(m.email||'').replace(/"/g,'""')}"`,
+    `"${(m.subject||'').replace(/"/g,'""')}"`,
+    `"${(m.message||'').replace(/"/g,'""').replace(/\n/g,' ')}"`,
+    `"${m.time||''}"`,
+    m.read?'Yes':'No',
+    m.starred?'Yes':'No',
+    m.replies?m.replies.length:0
+  ].join(',')).join('\n');
+  const csv=header+rows;
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='messages_'+(new Date().toISOString().slice(0,10))+'.csv';
+  a.click();
+  showCopyToast('Exported!');
 }
 
 /* ══════════════════════════════════════
@@ -1856,7 +2187,7 @@ function go(id){
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
   if(id==='about'){setTimeout(animSkills,200);setTimeout(triggerReveal,100);}
-  if(id==='home')startCounters();
+  if(id==='home'){startCounters();setTimeout(triggerReveal,100);}
   if(id==='blog')fetchBlog();
   if(id==='projects'&&!ghUser)renderCustomProjects();
   if(id==='services'||id==='hire')setTimeout(triggerReveal,100);
@@ -1873,7 +2204,7 @@ document.getElementById('themeBtn').onclick=()=>{
 };
 
 /* TYPING EFFECT */
-const TL=["Full Stack Developer","Open Source Contributor","UI/UX Enthusiast","Problem Solver","Coffee-Driven Coder ☕"];
+const TL=["Full Stack Developer","Open Source Contributor","UI/UX Enthusiast","Problem Solver","Coffee-Driven Coder ☕","React Whisperer","API Architect"];
 let tli=0,tci=0,tdel=false;
 function type(){
   const el=document.getElementById('typing');if(!el)return;
@@ -1893,7 +2224,7 @@ function animCount(id,target,sfx=''){
 function startCounters(){SD.stats.forEach((v,i)=>animCount('cnt'+(i+1),v,'+'))}
 startCounters();
 
-/* REVEAL ANIMATIONS */
+/* REVEAL */
 function triggerReveal(){
   document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
     if(el.getBoundingClientRect().top<window.innerHeight-60)el.classList.add('in');
@@ -1902,7 +2233,7 @@ function triggerReveal(){
 window.addEventListener('scroll',triggerReveal,{passive:true});
 setTimeout(triggerReveal,300);
 
-/* CV DOWNLOAD */
+/* CV */
 function downloadCV(){
   if(SD.links&&SD.links.cvurl){window.open(SD.links.cvurl,'_blank');return}
   const a=document.createElement('a');
